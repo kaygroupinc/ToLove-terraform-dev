@@ -58,7 +58,7 @@ resource "aws_lb_target_group" "nlb_target_group" {
 }
 
 ##############################
-# Create the Listener          #
+# Create the Listener        #
 ##############################
 resource "aws_lb_listener" "nlb_listener" {
   load_balancer_arn = aws_lb.nlb.arn
@@ -68,5 +68,26 @@ resource "aws_lb_listener" "nlb_listener" {
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.nlb_target_group.arn
+  }
+}
+
+##############################
+# Domain                     #
+##############################
+
+data "aws_route53_zone" "primary" {
+  name         = var.custom_domain
+  private_zone = false
+}
+
+resource "aws_route53_record" "nlb_alias" {
+  zone_id = data.aws_route53_zone.primary.zone_id
+  name    = var.custom_domain  // e.g., "api.example.com"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.nlb.dns_name
+    zone_id                = aws_lb.nlb.zone_id
+    evaluate_target_health = true
   }
 }

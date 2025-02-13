@@ -76,3 +76,9 @@ variable "container_image_version" {
   default = "1.0.6"
 }
 
+variable "custom_domain" {
+  description = "The custom DNS name (e.g., api.example.com) that your front end will use"
+  type        = string
+  default     = "kaytolove.com"
+}
+
