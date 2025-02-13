@@ -22,6 +22,12 @@ variable "subnet_name_a" {
   default = "Public Subnet A"
 }
 
+variable "subnet_region_a" {
+  description = "Value of the subnet region for the VPC"
+  type = string
+  default = "eu-north-1a"
+}
+
 variable "subnet_cidr_b" {
   description = "Value of the subnet CIDR for the VPC"
   type = string
@@ -32,6 +38,12 @@ variable "subnet_name_b" {
   description = "Value of the subnet name for the VPC"
   type = string
   default = "Public Subnet B"
+}
+
+variable "subnet_region_b" {
+  description = "Value of the subnet region for the VPC"
+  type = string
+  default = "eu-north-1b"
 }
 
 variable "igw_name" {
@@ -61,6 +73,6 @@ variable "container_image_name" {
 variable "container_image_version" {
   description = "Value of the version for the container image"
   type = string
-  default = "1.0.4"
+  default = "1.0.6"
 }
 
