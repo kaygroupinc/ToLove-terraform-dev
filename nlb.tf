@@ -82,7 +82,7 @@ data "aws_route53_zone" "primary" {
 
 resource "aws_route53_record" "nlb_alias" {
   zone_id = data.aws_route53_zone.primary.zone_id
-  name    = var.custom_domain  // e.g., "api.example.com"
+  name    = "dev"  // e.g., "api.example.com"
   type    = "A"
 
   alias {
