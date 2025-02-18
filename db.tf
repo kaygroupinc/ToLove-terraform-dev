@@ -1,6 +1,6 @@
 resource "aws_db_subnet_group" "postgres_subnet_group" {
   name       = "postgres-subnet-group"
-  subnet_ids = [aws_subnet.public_subnet_a.id, aws_subnet.public_subnet_b.id]
+  subnet_ids = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
 
   tags = {
     Name = "Postgres Subnet Group"

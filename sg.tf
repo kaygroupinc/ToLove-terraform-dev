@@ -26,7 +26,7 @@ resource "aws_security_group" "db_sg" {
 
 # Security Group for the ECS Service
 resource "aws_security_group" "public_sg" {
-  name        = "ecs-service-sg"
+  name        = "public-sg"
   description = "Allow inbound HTTP traffic"
   vpc_id      = aws_vpc.tolove_vpc.id
 
@@ -49,7 +49,7 @@ resource "aws_security_group" "public_sg" {
 
 # Security Group for the ECS Service
 resource "aws_security_group" "private_sg" {
-  name        = "ecs-service-sg"
+  name        = "private-sg"
   description = "Allow inbound HTTP traffic"
   vpc_id      = aws_vpc.tolove_vpc.id
 

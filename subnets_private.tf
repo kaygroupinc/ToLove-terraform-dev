@@ -5,7 +5,7 @@ resource "aws_eip" "nat_eip_a" {
 }
 
 resource "aws_nat_gateway" "nat_gw_a" {
-  allocation_id = aws_eip.nat_eip.id
+  allocation_id = aws_eip.nat_eip_a.id
   subnet_id     = aws_subnet.public_subnet_a.id
 
   tags = {
@@ -52,7 +52,7 @@ resource "aws_eip" "nat_eip_b" {
 }
 
 resource "aws_nat_gateway" "nat_gw_b" {
-  allocation_id = aws_eip.nat_eip.id
+  allocation_id = aws_eip.nat_eip_b.id
   subnet_id     = aws_subnet.public_subnet_b.id
 
   tags = {
@@ -70,7 +70,7 @@ resource "aws_route_table" "private_rt_b" {
   }
 
   tags = {
-    Name = "Private Route Table"
+    Name = "Private Route Table B"
   }
 }
 
