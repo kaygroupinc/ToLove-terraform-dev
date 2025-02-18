@@ -10,16 +10,16 @@ variable "vpc_name" {
   default = "ToLove-VPC"
 }
 
-variable "subnet_cidr_a" {
+variable "subnet_cidr_a_public" {
   description = "Value of the subnet CIDR for the VPC"
   type = string
   default = "10.0.1.0/24"
 }
 
-variable "subnet_name_a" {
-  description = "Value of the subnet name for the VPC"
+variable "subnet_cidr_a_private" {
+  description = "Value of the subnet CIDR for the VPC"
   type = string
-  default = "Public Subnet A"
+  default = "10.0.2.0/24"
 }
 
 variable "subnet_region_a" {
@@ -28,16 +28,16 @@ variable "subnet_region_a" {
   default = "eu-north-1a"
 }
 
-variable "subnet_cidr_b" {
+variable "subnet_cidr_b_public" {
   description = "Value of the subnet CIDR for the VPC"
   type = string
-  default = "10.0.2.0/24"
+  default = "10.0.3.0/24"
 }
 
-variable "subnet_name_b" {
-  description = "Value of the subnet name for the VPC"
+variable "subnet_cidr_b_private" {
+  description = "Value of the subnet CIDR for the VPC"
   type = string
-  default = "Public Subnet B"
+  default = "10.0.4.0/24"
 }
 
 variable "subnet_region_b" {

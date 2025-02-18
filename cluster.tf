@@ -1,6 +1,6 @@
 # ECS Cluster
 resource "aws_ecs_cluster" "events_cluster" {
-  name = "tolove-events-cluster"
+  name = "tolove-events-cluster-dev"
 }
 
 ###########################################
@@ -75,7 +75,7 @@ resource "aws_ecs_service" "server_service" {
 
   network_configuration {
     subnets         = [aws_subnet.public_subnet_a.id, aws_subnet.public_subnet_b.id]
-    security_groups = [aws_security_group.app_sg.id]
+    security_groups = [aws_security_group.public_sg.id]
     assign_public_ip = true
   }
 
