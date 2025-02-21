@@ -1,7 +1,7 @@
-resource "aws_security_group" "db_sg" {
-  name        = "rds-postgres-sg"
+resource "aws_security_group" "db_sg_dev" {
+  name        = "rds-postgres-sg-dev"
   description = "Security group for PostgreSQL RDS"
-  vpc_id      = aws_vpc.tolove_vpc.id
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     description = "Allow Postgres access from the app"
@@ -20,15 +20,15 @@ resource "aws_security_group" "db_sg" {
   }
 
   tags = {
-    Name = "rds-postgres-sg"
+    Name = "rds-postgres-sg-dev"
   }
 }
 
 # Security Group for the ECS Service
-resource "aws_security_group" "public_sg" {
-  name        = "public-sg"
+resource "aws_security_group" "public_sg_dev" {
+  name        = "public-sg-dev"
   description = "Allow inbound HTTP traffic"
-  vpc_id      = aws_vpc.tolove_vpc.id
+  vpc_id      = module.vpc.vpc_id
 
   # Ingress: Allow HTTP (port 80) traffic
   ingress {
@@ -48,10 +48,10 @@ resource "aws_security_group" "public_sg" {
 }
 
 # Security Group for the ECS Service
-resource "aws_security_group" "private_sg" {
-  name        = "private-sg"
+resource "aws_security_group" "private_sg_dev" {
+  name        = "private-sg-dev"
   description = "Allow inbound HTTP traffic"
-  vpc_id      = aws_vpc.tolove_vpc.id
+  vpc_id      = module.vpc.vpc_id
 
   # Ingress: Allow HTTP (port 80) traffic
   ingress {
