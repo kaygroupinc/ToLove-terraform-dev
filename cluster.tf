@@ -27,9 +27,10 @@ resource "aws_ecs_task_definition" "server_task_dev" {
 
   container_definitions = jsonencode([
     {
-      name  = "server",
+      name  = "events-server",
       image = "${var.container_image_name}:${var.container_image_version}"
       # command   = ["sleep", "infinity"],
+      command   = ["node", "dist/server.js", "false", "false"],
       portMappings = [
         {
           containerPort = 80,
@@ -44,8 +45,8 @@ resource "aws_ecs_task_definition" "server_task_dev" {
       },
       environment = [
         { name = "SERVER_PORT", value = tostring(80) },
-        { name = "DATABASE_HOST", value = aws_db_instance.postgres_events_dev.address },
-        { name = "DATABASE_PORT", value = tostring(aws_db_instance.postgres_events_dev.port) },
+        # { name = "DATABASE_HOST", value = aws_db_instance.postgres_events_dev.address },
+        # { name = "DATABASE_PORT", value = tostring(aws_db_instance.postgres_events_dev.port) },
         { name = "DATABASE_USER", value = local.postgres_credentials.db_username },
         { name = "DATABASE_PASSWORD", value = local.postgres_credentials.db_password }
       ],
@@ -67,7 +68,7 @@ resource "aws_ecs_task_definition" "server_task_dev" {
 ###########################################
 
 resource "aws_ecs_service" "server_service_dev" {
-  name            = "server-service-dev"
+  name            = "events-server-service-dev"
   cluster         = aws_ecs_cluster.events_cluster_dev.id
   task_definition = aws_ecs_task_definition.server_task_dev.arn
   desired_count   = 1
@@ -76,12 +77,12 @@ resource "aws_ecs_service" "server_service_dev" {
   network_configuration {
     subnets         = module.vpc.private_subnets
     security_groups = [aws_security_group.private_sg_dev.id]
-    assign_public_ip = false
+    assign_public_ip = true
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.nlb_target_group_dev.arn
-    container_name   = "server"
+    target_group_arn = aws_lb_target_group.alb_target_group_dev.arn
+    container_name   = "events-server"
     container_port   = 80
   }
 
