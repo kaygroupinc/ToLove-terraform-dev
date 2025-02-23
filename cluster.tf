@@ -30,7 +30,7 @@ resource "aws_ecs_task_definition" "server_task_dev" {
       name  = "events-server",
       image = "${var.container_image_name}:${var.container_image_version}"
       # command   = ["sleep", "infinity"],
-      command   = ["node", "dist/server.js", "false", "false"],
+      # command   = ["node", "dist/server.js", "false", "false"],
       portMappings = [
         {
           containerPort = 80,
@@ -45,8 +45,8 @@ resource "aws_ecs_task_definition" "server_task_dev" {
       },
       environment = [
         { name = "SERVER_PORT", value = tostring(80) },
-        # { name = "DATABASE_HOST", value = aws_db_instance.postgres_events_dev.address },
-        # { name = "DATABASE_PORT", value = tostring(aws_db_instance.postgres_events_dev.port) },
+        { name = "DATABASE_HOST", value = aws_db_instance.postgres_events_dev.address },
+        { name = "DATABASE_PORT", value = tostring(aws_db_instance.postgres_events_dev.port) },
         { name = "DATABASE_USER", value = local.postgres_credentials.db_username },
         { name = "DATABASE_PASSWORD", value = local.postgres_credentials.db_password }
       ],
